@@ -23,9 +23,15 @@ x[Int(N/2):Int(N/2+5)] = 1.0
 # A dataset
 y = generate_data(x, my_matrix)
 
-# Plot the data using matplotlib
+# Do eighties maxent
+include("eighties_maxent.jl")
+x_fit = eighties_maxent(y, my_matrix, 1.0)
+
+# Plot the data and the inferred signal using matplotlib
 plt.plot(x, "ro-", label="True signal")
 plt.plot(y, "bo-", label="Blurred, noisy data")
+plt.plot(x_fit, "go-", label="MAP")
 plt.legend(loc="upper right")
 plt.show()
+
 

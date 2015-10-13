@@ -5,19 +5,14 @@ function eighties_maxent(y_data::Vector{Float64}, mat::Matrix{Float64}, sigma::F
 	x = ones(size(mat)[1])
 
 	# logprob shorthand that only depends on x
-	function merit(x)
-		return logprob(x, y_data, mat, sigma)
+	function badness(x)
+		return -logprob(x, y_data, mat, sigma)
 	end
-
-	x = optimize(merit, x, method=:cg)
-	return x
+	return optimize(badness, x, method=:cg, show_trace=true).minimum
 end
 
 function logprob(x::Vector{Float64}, y_data::Vector{Float64}, mat::Matrix{Float64}, sigma::Float64)
-	# Log prior
-	alpha = 1.0
-	H = -sum(x.*log(x))
 	y_model = mat*x
-	return alpha*H# - 0.5*sum((y_data - y_model).^2/sigma^2)
+	return -3*sum(x.^2) - 0.5*sum((y_data - y_model).^2/sigma^2)
 end
 
