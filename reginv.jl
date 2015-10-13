@@ -1,7 +1,7 @@
 using Optim
 
-# Find the posterior mode with a prior \propto exp(alpha*H)
-function eighties_maxent(y_data::Vector{Float64}, mat::Matrix{Float64}, sigma::Float64=1.0)
+# Find the posterior mode
+function reginv(y_data::Vector{Float64}, mat::Matrix{Float64}, sigma::Float64=1.0)
 	x = ones(size(mat)[1])
 
 	# logprob shorthand that only depends on x

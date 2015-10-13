@@ -23,9 +23,9 @@ x[Int(N/2):Int(N/2+5)] = 1.0
 # A dataset
 y = generate_data(x, my_matrix)
 
-# Do eighties maxent
-include("eighties_maxent.jl")
-x_fit = eighties_maxent(y, my_matrix, 1.0)
+# Do regularised inversion
+include("reginv.jl")
+x_fit = reginv(y, my_matrix, 1.0)
 
 # Plot the data and the inferred signal using matplotlib
 plt.plot(x, "ro-", label="True signal")
