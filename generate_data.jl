@@ -1,21 +1,13 @@
-# A "blurring" matrix
-my_matrix = zeros((100, 100))
-for(j in 1:100)
-	for(i in 1:100)
-		my_matrix[i, j] = exp(-abs(i - j)/5.0)
-	end
-end
-
 @doc """
 Generate some data using
-y = M*x + n
+y = mat*x + n
 where x = vector of interest
-M = some transformation matrix
+mat = some transformation matrix
 n = noise
-This assumes p(n) ~ iid Normal
+This assumes p(n) ~ iid Normal(0, sigma^2)
 """ ->
-function generate_data(M::Array{Float64, 2}, x::Array{Float64, 1})
-	@assert length(x) == size(M)[1]
-	return M*x + randn(length(x))
+function generate_data(x::Array{Float64, 1}, mat::Array{Float64, 2}, sigma=1.0)
+	@assert length(x) == size(mat)[2]
+	return mat*x + sigma*randn(size(mat)[1])
 end
 
